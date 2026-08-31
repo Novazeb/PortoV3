@@ -1,0 +1,17 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/id",
+      "destination": "/id.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/cdn-cgi/l/email-protection",
+      "destination": "/index.html"
+    }
+  ]
+}
