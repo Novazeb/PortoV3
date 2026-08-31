@@ -1,0 +1,9 @@
+{
+  "name": "portov3",
+  "version": "1.0.0",
+  "description": "Creative Developer Portfolio",
+  "scripts": {
+    "start": "python server.py 3000",
+    "dev": "python server.py 3000"
+  }
+}

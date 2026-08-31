@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.pyc
+
+# OS & Temp files
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+*.log
+*.png.preview
+*_preview.png
+
+# Vercel
+.vercel
+.env*.local
+
+# Node & Package Manager (if added)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
