@@ -4,7 +4,6 @@
   "description": "Creative Developer Portfolio",
   "scripts": {
     "start": "python server.py 3000",
-    "dev": "python server.py 3000",
     "sync": "python sync.py",
     "build": "python sync.py"
   }
