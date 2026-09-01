@@ -121,106 +121,133 @@
     ]
   },
   "projects": [
+    
     {
-      "id": "lumina-studio",
-      "title": "Lumina Studio",
-      "category_en": "Web Application",
-      "category_id": "Aplikasi Web",
-      "description_en": "Modern photography studio showcase and booking platform with interactive responsive galleries and seamless booking flows.",
-      "description_id": "Website profil dan sistem booking studio fotografi modern dengan galeri interaktif, layout responsif, dan showcase portofolio visual.",
-      "image": "/projects/20260427093247885.jpg",
+      "id": "SINAR-DESIGN-&-BUILD-:-Modern-Architecture-Platform",
+      "title": "SINAR DESIGN & BUILD",
+      "category_en": "Architecture & Construction",
+      "category_id": "Arsitektur & Konstruksi",
+      "description_en": "Modern architecture and construction company profile website built with Vue 3 & Vite, featuring an interactive hero slider, project cost estimation, and high-resolution portfolio gallery.",
+      "description_id": "Website profil perusahaan arsitektur dan kontraktor modern berbasis Vue 3 & Vite, dilengkapi fitur hero slider interaktif, estimasi biaya proyek, dan galeri portofolio beresolusi tinggi.",
+      "image": "/projects/sinardbmockup.jpg",
       "tech": [
-        "React",
-        "Next.js",
-        "Tailwind CSS",
-        "TypeScript"
+        "Vue 3",
+        "Vite 6",
+        "Bootstrap Grid",
+        "Swiper Slider",
+        "LightGallery"
       ],
-      "demoUrl": "https://github.com/Novazeb/LuminaStudio",
-      "sourceUrl": "https://github.com/Novazeb/LuminaStudio"
+      "demoUrl": "https://github.com/Novazeb/sinardesignbuild",
+      "sourceUrl": "https://github.com/Novazeb/sinardesignbuild"
     },
     {
-      "id": "mergeall-platform",
-      "title": "Mergeall Platform",
-      "category_en": "Multi-Tool Productivity",
-      "category_id": "Platform Produktivitas",
-      "description_en": "An all-in-one productivity multi-tool platform offering lightning-fast file utilities, format converters, and developer text processing.",
-      "description_id": "Platform produktivitas multi-tool cerdas yang menyatukan utilitas konversi, kompresi file, text processing, dan developer tools dalam satu interface cepat.",
-      "image": "/projects/20260427093247620.jpg",
+      "id": "sumatra-tour",
+      "title": "Sumatra Tour",
+      "category_en": "Booking & Tourism Website",
+      "category_id": "Website Pemesanan & Pariwisata",
+      "description_en": "Modern and responsive tourism website for exploring Sumatra's natural & marine destinations, featuring dynamic category filtering, interactive HD lightbox, and performance optimization without heavy dependencies.",
+      "description_id": "Website pariwisata modern dan responsif untuk eksplorasi destinasi alam & bahari Pulau Sumatra, dilengkapi dynamic category filtering, interactive HD lightbox, dan optimasi performa bebas dependensi berat.",
+      "image": "/projects/sumatratourmockup.jpg",
       "tech": [
-        "Next.js",
-        "TypeScript",
-        "Tailwind CSS",
-        "PostgreSQL"
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "Bootstrap Grid",
+        "Isotope.js"
       ],
-      "demoUrl": "https://github.com/Novazeb/Mergeall",
-      "sourceUrl": "https://github.com/Novazeb/Mergeall"
+      "demoUrl": "https://github.com/Novazeb/sumatratour",
+      "sourceUrl": "https://github.com/Novazeb/sumatratour"
     },
     {
-      "id": "ceknet-suite",
-      "title": "CekNet Suite",
-      "category_en": "Network Diagnostics",
-      "category_id": "Diagnostik Jaringan",
-      "description_en": "Real-time network diagnostics and web performance suite with WebSockets, latency monitoring, and bandwidth metrics.",
-      "description_id": "Suite diagnostik jaringan dan monitoring performa web real-time berbasis WebSockets, visualisasi latensi, dan analisis kecepatan koneksi.",
-      "image": "/projects/20260305210513749.jpg",
+      "id": "anak-cerdas",
+      "title": "AnakCerdas",
+      "category_en": "Educational Web Application",
+      "category_id": "Aplikasi Web Edukasi",
+      "description_en": "An interactive, kid-friendly quiz web application designed with a comforting plush felt aesthetic. Features a 200-question pool across 4 progressive modules (Math, Memory, Nature, and Social Knowledge), Web Audio API synthesizers with 3 ambient BGM themes, and positive feedback loops without fear of failure.",
+      "description_id": "Aplikasi kuis interaktif ramah anak dengan desain estetika plush felt yang nyaman. Menyediakan 200 pertanyaan dalam 4 modul progresif (Matematika, Memori, Alam, dan Pengetahuan Sosial), Web Audio API synthesizers dengan 3 tema BGM ambient, serta umpan balik positif tanpa rasa takut gagal.",
+      "image": "/projects/anakcerdasmockup.jpg",
       "tech": [
-        "PHP",
-        "Laravel",
-        "WebSockets",
-        "JavaScript"
+        "Vue 3",
+        "Tailwind CSS",
+        "Pinia",
+        "Web Audio API"
       ],
-      "demoUrl": "https://github.com/Novazeb/CekNet",
-      "sourceUrl": "https://github.com/Novazeb/CekNet"
+      "demoUrl": "https://github.com/Novazeb/anakcerdas",
+      "sourceUrl": "https://github.com/Novazeb/anakcerdas"
     }
   ],
   "roadmap": [
     {
       "id": "01",
-      "year": "2023",
-      "description_en": "Started learning programming fundamentals, HTML, CSS, JavaScript, and building dynamic websites with relational databases (MySQL).",
-      "description_id": "Mempelajari dasar-dasar pemrograman, HTML, CSS, JavaScript, dan membangun aplikasi web dinamis dengan database relasional (MySQL).",
+      "year": "2021",
+      "description_en": "Began exploring the field of technology, particularly computerization, and started the journey by assembling a personal PC and installing the Windows operating system.",
+      "description_id": "Mulai tertarik pada bidang teknologi, khususnya komputerisasi, dan memulai perjalanan dengan merakit PC pribadi serta menginstal sistem operasi Windows.",
       "stack": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "MySQL"
+        "Computer",
+        "Windows OS",
+        "Hardware"
       ]
     },
     {
       "id": "02",
-      "year": "2024",
-      "description_en": "Developed network diagnostic tools like CekNet, mastering WebSockets, asynchronous operations, and backend PHP/Laravel APIs.",
-      "description_id": "Mengembangkan utilitas diagnostik jaringan seperti CekNet, menguasai WebSockets, operasi asynchronous, dan API backend PHP/Laravel.",
+      "year": "2022",
+      "description_en": "Pursued education at Universitas Pembangunan Panca Budi Medan majoring in Computer Systems, and began learning programming languages such as HTML, CSS, and JavaScript.",
+      "description_id": "Menempuh pendidikan di Universitas Pembangunan Panca Budi Medan dengan jurusan Sistem Komputer, serta mulai mempelajari bahasa pemrograman seperti HTML, CSS, dan JavaScript.",
       "stack": [
-        "PHP",
-        "Laravel",
-        "WebSockets",
+        "HTML",
+        "CSS",
         "JavaScript"
       ]
     },
     {
       "id": "03",
-      "year": "2025",
-      "description_en": "Built complex production platforms including Mergeall and Lumina Studio using Next.js, React, Tailwind CSS, TypeScript, and PostgreSQL.",
-      "description_id": "Membangun platform produksi kompleks termasuk Mergeall dan Lumina Studio menggunakan Next.js, React, Tailwind CSS, TypeScript, dan PostgreSQL.",
+      "year": "2023",
+      "description_en": "Deepened understanding of backend development with PHP, and learned to use MySQL databases in the context of more complex web applications. Began familiarizing with local development environments like XAMPP as a supportive tool for running and testing applications independently, making the learning and development process more structured, efficient, and ready to be applied to larger projects in the future.",
+      "description_id": "Memperdalam pemahaman terhadap pengembangan backend dengan PHP, serta mempelajari penggunaan basis data MySQL dalam konteks aplikasi web yang lebih kompleks. Mulai mengenal lingkungan pengembangan lokal seperti XAMPP sebagai alat pendukung untuk menjalankan dan menguji aplikasi secara mandiri, sehingga proses belajar dan pengembangan menjadi lebih terstruktur, efisien, dan siap untuk diterapkan pada proyek yang lebih besar di kemudian hari.",
       "stack": [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "PostgreSQL",
-        "Tailwind CSS"
+        "PHP",
+        "MySQL",
+        "XAMPP"
       ]
     },
     {
       "id": "04",
+      "year": "2024",
+      "description_en": "Started learning and utilizing various modern frameworks such as Laravel, Vue.js, and React, as well as delving deeper into API usage during an internship. In the process, I attempted to build a simple POS website with a more structured architecture approach, efficient, and ready to be developed for more complex business needs in the future.",
+      "description_id": "Mulai mempelajari dan menggunakan berbagai framework modern seperti Laravel, Vue.js, dan React, serta mendalami penggunaan API secara lebih mendalam saat Magang. Dalam prosesnya, saya mencoba membangun website POS sederhana dengan pendekatan arsitektur yang lebih terstruktur, efisien, dan siap dikembangkan untuk kebutuhan bisnis yang lebih kompleks di masa depan.",
+      "stack": [
+        "Laravel",
+        "Vue.js",
+        "React",
+        "API"
+      ]
+    },
+    {
+      "id": "05",
+      "year": "2025",
+      "description_en": "Continued strengthening my skills in modern web development by learning and applying Next.js in more practical projects, while also expanding knowledge in backend and data handling through Python and PostgreSQL.",
+      "description_id": "Memperdalam keterampilan dalam membangun website dengan framework modern seperti Next.js dan menerapkannya pada proyek-proyek yang lebih nyata, sekaligus memperluas pemahaman di bidang backend dan pengelolaan data melalui Python serta PostgreSQL.",
+      "stack": [
+        "Next.js",
+        "Python",
+        "PostgreSQL",
+        "API"
+      ]
+    },
+    {
+      "id": "06",
       "year": "2026",
-      "description_en": "Focusing on enterprise-grade software architecture, AI integrations, performance optimization, and resilient full-stack systems.",
-      "description_id": "Berfokus pada arsitektur perangkat lunak skala besar, integrasi AI, optimalisasi kinerja, dan sistem full-stack yang tangguh.",
+      "description_en": "Started building various independent projects, ranging from POS systems, kiosks, static websites, web-based ordering applications, to interactive educational applications, with a more mature, efficient, and complex architectural approach.",
+      "description_id": "Membangun berbagai macam proyek mandiri, mulai dari pos, kiosk, website statis, aplikasi pemesanan berbasis web, hingga aplikasi edukasi interaktif, dengan pendekatan arsitektur yang lebih matang, efisien dan lebih kompleks.",
       "stack": [
         "Next.js",
         "Laravel",
+        "React",
+        "Vue.js",
+        "Python",
+        "MySQL",
         "PostgreSQL",
-        "Cloud Engine"
+        "API"
       ]
     }
   ]
