@@ -59,12 +59,35 @@ PortoV3/
 ├── stack/                # Tech stack SVG & brand icons
 ├── index.html            # Main English landing page
 ├── id.html               # Bahasa Indonesia landing page
+├── portfolio.config.json # Centralized content configuration (Easy to edit!)
+├── sync.py               # Auto-sync tool for portfolio.config.json
 ├── package.json          # Node scripts configuration
 ├── server.py             # Zero-dependency Python HTTP server
 ├── vercel.json           # Vercel deployment routing configuration
 ├── .gitignore            # Git exclusion rules
 └── README.md             # Project documentation
 ```
+
+---
+
+## ✏️ How to Edit / Customize Content
+
+You don't need to manually edit minified HTML files! All content is neatly organized in **`portfolio.config.json`**:
+
+1. Open **`portfolio.config.json`** in VS Code.
+2. Edit anything you want:
+   - **Profile & Social Links** (`profile`)
+   - **About Bio** in English & Indonesian (`about`)
+   - **Tech Stack & Icons** (`stack`)
+   - **Projects, Demo URLs & Descriptions** (`projects`)
+   - **Career Roadmap Timeline** (`roadmap`)
+3. Run the sync command:
+   ```bash
+   python sync.py
+   # or with npm:
+   npm run sync
+   ```
+4. Refresh your browser to see your changes applied instantly to both English and Indonesian versions!
 
 ---
 
