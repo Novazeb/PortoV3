@@ -39,10 +39,6 @@ class PortfolioHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(f.read())
             return
 
-        if path.startswith('/cdn-cgi/l/email-protection'):
-            self.send_response(204)
-            self.end_headers()
-            return
 
         # Handle Next.js image optimizer endpoint: /_next/image?url=...
         if path == '/_next/image':
