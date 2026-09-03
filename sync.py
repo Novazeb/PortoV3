@@ -21,15 +21,47 @@ def build_pages():
         shutil.rmtree(cdn_dir, ignore_errors=True)
         print("[CLEANUP] Removed obsolete cdn-cgi/ Cloudflare assets.")
 
-    # 4. Update preload logo with user's custom logo
-    custom_logo_src = r"C:\Users\NOVA ZE\.gemini\antigravity\brain\ebc36c23-1a84-4cfb-8b01-d1bec4273374\.user_uploaded\media_1788406459501.png"
-    logo_dst = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logo.png')
-    if os.path.exists(custom_logo_src):
-        try:
-            shutil.copyfile(custom_logo_src, logo_dst)
-            print("[OK] Preload logo updated to new custom logo!")
-        except Exception as e:
-            print(f"[WARN] Could not copy logo: {e}")
+    # 4. Update preload logo with ultra-bold white N on black circle
+    try:
+        ps_cmd = (
+            "Add-Type -AssemblyName System.Drawing; "
+            "$bmp = New-Object System.Drawing.Bitmap 512, 512; "
+            "$g = [System.Drawing.Graphics]::FromImage($bmp); "
+            "$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias; "
+            "$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAlias; "
+            "$g.Clear([System.Drawing.Color]::Transparent); "
+            "$bBlack = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::Black); "
+            "$g.FillEllipse($bBlack, 16, 16, 480, 480); "
+            "$fontFamily = New-Object System.Drawing.FontFamily('Arial Black'); "
+            "$path = New-Object System.Drawing.Drawing2D.GraphicsPath; "
+            "$sf = New-Object System.Drawing.StringFormat; "
+            "$sf.Alignment = [System.Drawing.StringAlignment]::Center; "
+            "$sf.LineAlignment = [System.Drawing.StringAlignment]::Center; "
+            "$path.AddString('N', $fontFamily, [int][System.Drawing.FontStyle]::Bold, 295, (New-Object System.Drawing.RectangleF 0, 8, 512, 512), $sf); "
+            "$bWhite = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White); "
+            "$g.FillPath($bWhite, $path); "
+            "$penWhite = New-Object System.Drawing.Pen([System.Drawing.Color]::White, 24); "
+            "$penWhite.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round; "
+            "$g.DrawPath($penWhite, $path); "
+            "$dest = 'd:\\ANIME\\PortoV3\\logo.png'; "
+            "$bmp.Save($dest, [System.Drawing.Imaging.ImageFormat]::Png); "
+            "$favBmp = New-Object System.Drawing.Bitmap 64, 64; "
+            "$favG = [System.Drawing.Graphics]::FromImage($favBmp); "
+            "$favG.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic; "
+            "$favG.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias; "
+            "$favG.DrawImage($bmp, 0, 0, 64, 64); "
+            "$hIcon = $favBmp.GetHicon(); "
+            "$icon = [System.Drawing.Icon]::FromHandle($hIcon); "
+            "$fs = [System.IO.File]::Create('d:\\ANIME\\PortoV3\\favicon.ico'); "
+            "$icon.Save($fs); "
+            "$fs.Close(); $icon.Dispose(); $favG.Dispose(); $favBmp.Dispose(); "
+            "$g.Dispose(); $bmp.Dispose();"
+        )
+        import subprocess
+        subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], check=False)
+        print("[OK] Preload logo and favicon.ico updated with ultra-bold white 'N'!")
+    except Exception as e:
+        print(f"[WARN] Could not generate solid white logo/favicon: {e}")
 
     # 5. Generate push.bat helper
     push_bat_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'push.bat')
@@ -124,7 +156,7 @@ def update_single_page(filename, cfg, lang='en'):
         "toolsStack": "Tools & Infrastructure" if lang == 'en' else "Tools & Infrastruktur",
         "projectsIntro": "A collection of *experiments*, *products*, and *digital artifacts* forged in the **void**." if lang == 'en' else "Kumpulan proyek unggulan, sistem web modern, dan arsitektur aplikasi yang pernah saya kembangkan.",
         "projectsScrollText": "Scroll to explore" if lang == 'en' else "Gulir untuk melihat proyek",
-        "projectsEndText": "End" if lang == 'en' else "Akhir dari daftar proyek",
+        "projectsEndText": "MORE IN GITHUB",
         "roadmapDescription": "A roadmap where I share the experiences I've gained throughout my software journey and the technologies I've learned." if lang == 'en' else "Perjalanan eksplorasi teknologi dan pengembangan keahlian software engineering saya.",
         "contactIntroText": "Whether we start fresh to bring a project to life or take an existing system further." if lang == 'en' else "Tertarik berkolaborasi atau membangun proyek bersama? Jangan ragu untuk menghubungi saya.",
         "sendEmail": "Send an Email" if lang == 'en' else "Kirim Email",
@@ -218,6 +250,11 @@ def update_single_page(filename, cfg, lang='en'):
     html = html.replace('Saluran Langsung', 'GitHub')
     html = html.replace('Not added yet.', 'github.com/Novazeb')
     html = re.sub(r'href="tel:[^"]*"', 'href="https://github.com/Novazeb" target="_blank" rel="noopener noreferrer"', html)
+
+    # Replace END text with MORE IN GITHUB
+    html = html.replace('>End<', '>MORE IN GITHUB<')
+    html = html.replace('>END<', '>MORE IN GITHUB<')
+    html = html.replace('>Akhir dari daftar proyek<', '>MORE IN GITHUB<')
 
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(html)
