@@ -256,6 +256,77 @@ def update_single_page(filename, cfg, lang='en'):
     html = html.replace('>END<', '>MORE IN GITHUB<')
     html = html.replace('>Akhir dari daftar proyek<', '>MORE IN GITHUB<')
 
+    # Synchronize pre-rendered Roadmap HTML section
+    roadmap_pattern = r'<section id="roadmap">.*?</section></section>'
+    title = "Roadmap"
+    desc = "A roadmap where I share the experiences I&#x27;ve gained throughout my software journey and the technologies I&#x27;ve learned." if lang == 'en' else "Perjalanan eksplorasi teknologi dan pengembangan keahlian software engineering saya."
+    
+    items_html = []
+    for i, item in enumerate(cfg['roadmap']):
+        is_even = (i % 2 == 0)
+        flex_dir = "flex-row" if is_even else "flex-row-reverse"
+        text_align = "md:text-right" if is_even else "md:text-left"
+        badge_align = "md:justify-end" if is_even else "md:justify-start"
+        margin_style = "margin-left:auto" if is_even else "margin-left:0"
+        stack_align = "md:justify-end" if is_even else "justify-start"
+        bg_pos = "-left-12" if is_even else "-right-12 text-right"
+        
+        item_id = item.get("id", f"{i+1:02d}")
+        year = item.get("year", "")
+        short_year = year[-2:] if len(year) >= 2 else year
+        item_desc = item.get("description_en", "") if lang == 'en' else item.get("description_id", "")
+        item_desc = item_desc.replace("'", "&#x27;")
+        
+        stack_spans = "".join([
+            f'<span class="text-xs uppercase tracking-wider text-muted-foreground font-medium px-3 py-1 rounded-full border border-border/40 bg-background/50 shadow-sm">{tech}</span>'
+            for tech in item.get("stack", [])
+        ])
+        
+        items_html.append(
+            f'<div class="relative flex items-center justify-between w-full {flex_dir}">'
+            f'<div class="w-[calc(50%-3rem)] hidden md:block"></div>'
+            f'<div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full border border-border/50 bg-background z-20 flex items-center justify-center shadow-lg group-hover:border-primary/50 transition-colors duration-500">'
+            f'<div class="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-primary shadow-[0_0_10px_rgba(var(--primary),0.8)]"></div>'
+            f'</div>'
+            f'<div class="w-full md:w-[calc(50%-3rem)] pl-16 md:pl-0 relative group">'
+            f'<div class="will-change-[opacity,filter,transform]" style="opacity:0;filter:blur(15px);transform:translateY(30px)">'
+            f'<div class="relative p-8 md:p-10 border border-border/50 bg-secondary/5 backdrop-blur-md overflow-hidden transition-all duration-700 ease-out hover:bg-secondary/20 hover:border-border hover:shadow-2xl {text_align}">'
+            f'<span class="max-sm:hidden text-xs font-mono tracking-widest text-muted-foreground uppercase flex mb-4 {badge_align}">{item_id}</span>'
+            f'<div class="flex flex-col gap-3 relative z-10">'
+            f'<h3 class="text-4xl md:text-5xl lg:text-6xl tracking-tighter font-serif italic font-semibold text-foreground uppercase mt-2 group-hover:text-primary transition-colors duration-500">{year}</h3>'
+            f'<p class="text-muted-foreground text-sm md:text-base leading-relaxed mt-2 max-w-sm ml-0 md:max-w-md" style="{margin_style}">{item_desc}</p>'
+            f'<div class="flex flex-wrap gap-2 mt-6 {stack_align}">{stack_spans}</div>'
+            f'</div>'
+            f'<div class="absolute top-1/2 -translate-y-1/2 text-[10rem] font-black italic text-foreground/3 select-none pointer-events-none transition-all duration-700 {bg_pos}">{short_year}</div>'
+            f'</div></div></div></div>'
+        )
+    
+    all_items = "".join(items_html)
+    new_roadmap = (
+        f'<section id="roadmap">'
+        f'<section class="relative container-void overflow-hidden py-32 xl:py-48 border-t border-border/50">'
+        f'<div class="absolute top-1/4 left-0 w-full max-w-lg h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none -translate-x-1/2"></div>'
+        f'<div class="absolute bottom-1/4 right-0 w-full max-w-lg h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none translate-x-1/2"></div>'
+        f'<div class="absolute top-0 left-0 right-0 bottom-0 pointer-events-none flex items-center justify-center opacity-[0.02] z-0 overflow-hidden" style="transform:none">'
+        f'<div class="text-[20vw] font-black tracking-tighter uppercase whitespace-nowrap">{title}</div>'
+        f'</div>'
+        f'<div class="container mx-auto px-container max-w-6xl relative z-10">'
+        f'<div class="flex flex-col md:items-center mb-24 md:mb-40 gap-4 text-center">'
+        f'<div class="will-change-[opacity,filter,transform]" style="opacity:0;filter:blur(15px);transform:translateY(30px)"><span class="title-counter">[004]</span></div>'
+        f'<div class="will-change-[opacity,filter,transform]" style="opacity:0;filter:blur(15px);transform:translateY(30px)"><h2 class="title">{title}</h2></div>'
+        f'<div class="will-change-[opacity,filter,transform]" style="opacity:0;filter:blur(15px);transform:translateY(30px)"><p class="text-lg mt-3 max-w-xl italic font-medium tracking-tight text-foreground/60">{desc}</p></div>'
+        f'</div>'
+        f'<div class="relative">'
+        f'<div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border/40 -translate-x-1/2"></div>'
+        f'<div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] bg-linear-to-b from-primary via-primary to-transparent shadow-[0_0_10px_rgba(var(--primary),0.5)] -translate-x-1/2 z-10" style="transform:scaleY(0);transform-origin:50% 0% 0"></div>'
+        f'<div class="flex flex-col w-full gap-8 md:gap-24 relative z-20">{all_items}</div>'
+        f'</div></div></section></section>'
+    )
+    
+    m_road = re.search(roadmap_pattern, html, re.DOTALL)
+    if m_road:
+        html = html[:m_road.start()] + new_roadmap + html[m_road.end():]
+
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(html)
     print(f"Synchronized {filename} for language: [{lang.upper()}]")
