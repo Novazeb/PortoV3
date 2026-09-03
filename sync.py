@@ -21,6 +21,17 @@ def build_pages():
         shutil.rmtree(cdn_dir, ignore_errors=True)
         print("[CLEANUP] Removed obsolete cdn-cgi/ Cloudflare assets.")
 
+    # 4. Patch Next.js image chunk to enable unoptimized: true for static hosting
+    chunk_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), '_next', 'static', 'chunks', 'a123a5920ee242b6.js')
+    if os.path.exists(chunk_file):
+        with open(chunk_file, 'r', encoding='utf-8') as f:
+            js = f.read()
+        if 'unoptimized:!1' in js:
+            js = js.replace('unoptimized:!1', 'unoptimized:!0')
+            with open(chunk_file, 'w', encoding='utf-8') as f:
+                f.write(js)
+            print("[PATCH] Enabled unoptimized: true on Next.js image component for static hosting.")
+
     # 4. Generate high-resolution solid white 'N' logo and favicon.ico if on Windows
     import platform
     if platform.system() == "Windows":
@@ -209,18 +220,38 @@ def update_single_page(filename, cfg, lang='en'):
     html = html.replace('/projects/20260427093247620.jpg', '/projects/sumatratourmockup.jpg')
     html = html.replace('/projects/20260305210513749.jpg', '/projects/anakcerdasmockup.jpg')
 
-    # Replace old email and clean Cloudflare email-protection tags
+    # Replace old email and completely remove Cloudflare email-protection tags
     email = cfg['profile']['email']
+    html = re.sub(r'<span class="__cf_email__"[^>]*>.*?</span>', email, html)
+    html = re.sub(r'data-cfemail="[^"]*"', '', html)
+    html = re.sub(r'href="[^"]*email-protection[^"]*"', f'href="mailto:{email}"', html)
+    html = html.replace('/cdn-cgi/l/email-protection', f'mailto:{email}')
+    html = re.sub(r'<script[^>]*email-decode[^>]*></script>', '', html)
+    html = re.sub(r'<script[^>]*cloudflareinsights\.com[^>]*>.*?</script>', '', html)
     html = html.replace('[email&#160;protected]', email)
     html = html.replace('[email protected]', email)
     html = re.sub(r'\[email(&#160;|&nbsp;|\s)*protected\]', email, html)
     html = re.sub(r'<a[^>]*class="__cf_email__"[^>]*>.*?</a>', email, html)
-    html = re.sub(r'href="[^"]*email-protection[^"]*"', f'href="mailto:{email}"', html)
-    html = re.sub(r'<script[^>]*email-decode\.min\.js[^>]*></script>', '', html)
-    html = re.sub(r'<script[^>]*cloudflareinsights\.com[^>]*>.*?</script>', '', html)
     html = html.replace('mustafw42@gmail.com', email)
-    html = html.replace('novaberkatsyukurzebua@gmail.com', email)
     html = html.replace('novanerkatsyukurzebua@gmail.com', email)
+
+    # Clean Next.js /_next/image wrappers in static HTML so images load directly
+    import urllib.parse
+    def clean_static_src(m):
+        raw = urllib.parse.unquote(m.group(1))
+        raw = raw.replace('/projects/20260427093247885.jpg', '/projects/sinardbmockup.jpg')
+        raw = raw.replace('/projects/20260427093247620.jpg', '/projects/sumatratourmockup.jpg')
+        raw = raw.replace('/projects/20260305210513749.jpg', '/projects/anakcerdasmockup.jpg')
+        return f'src="{raw}"'
+
+    def clean_static_preload(m):
+        raw = urllib.parse.unquote(m.group(1))
+        return f'<link rel="preload" as="image" href="{raw}"/>'
+
+    html = re.sub(r'<link[^>]*rel="preload"[^>]*as="image"[^>]*url=([^"& ]+)[^>]*>', clean_static_preload, html)
+    html = re.sub(r'src="/_next/image\?url=([^"&]+)[^"]*"', clean_static_src, html)
+    html = re.sub(r'srcSet="/_next/image\?[^"]*"', '', html)
+    html = re.sub(r'imageSrcSet="/_next/image\?[^"]*"', '', html)
 
     # Replace DIRECT LINE with GITHUB
     html = html.replace('DIRECT LINE', 'GITHUB')
