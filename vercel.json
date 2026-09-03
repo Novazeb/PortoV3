@@ -9,10 +9,6 @@
     {
       "source": "/en",
       "destination": "/index.html"
-    },
-    {
-      "source": "/cdn-cgi/l/email-protection",
-      "destination": "/index.html"
     }
   ]
 }
