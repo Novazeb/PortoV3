@@ -21,72 +21,50 @@ def build_pages():
         shutil.rmtree(cdn_dir, ignore_errors=True)
         print("[CLEANUP] Removed obsolete cdn-cgi/ Cloudflare assets.")
 
-    # 4. Update preload logo with ultra-bold white N on black circle
-    try:
-        ps_cmd = (
-            "Add-Type -AssemblyName System.Drawing; "
-            "$bmp = New-Object System.Drawing.Bitmap 512, 512; "
-            "$g = [System.Drawing.Graphics]::FromImage($bmp); "
-            "$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias; "
-            "$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAlias; "
-            "$g.Clear([System.Drawing.Color]::Transparent); "
-            "$bBlack = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::Black); "
-            "$g.FillEllipse($bBlack, 16, 16, 480, 480); "
-            "$fontFamily = New-Object System.Drawing.FontFamily('Arial Black'); "
-            "$path = New-Object System.Drawing.Drawing2D.GraphicsPath; "
-            "$sf = New-Object System.Drawing.StringFormat; "
-            "$sf.Alignment = [System.Drawing.StringAlignment]::Center; "
-            "$sf.LineAlignment = [System.Drawing.StringAlignment]::Center; "
-            "$path.AddString('N', $fontFamily, [int][System.Drawing.FontStyle]::Bold, 295, (New-Object System.Drawing.RectangleF 0, 8, 512, 512), $sf); "
-            "$bWhite = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White); "
-            "$g.FillPath($bWhite, $path); "
-            "$penWhite = New-Object System.Drawing.Pen([System.Drawing.Color]::White, 24); "
-            "$penWhite.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round; "
-            "$g.DrawPath($penWhite, $path); "
-            "$dest = 'd:\\ANIME\\PortoV3\\logo.png'; "
-            "$bmp.Save($dest, [System.Drawing.Imaging.ImageFormat]::Png); "
-            "$favBmp = New-Object System.Drawing.Bitmap 64, 64; "
-            "$favG = [System.Drawing.Graphics]::FromImage($favBmp); "
-            "$favG.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic; "
-            "$favG.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias; "
-            "$favG.DrawImage($bmp, 0, 0, 64, 64); "
-            "$hIcon = $favBmp.GetHicon(); "
-            "$icon = [System.Drawing.Icon]::FromHandle($hIcon); "
-            "$fs = [System.IO.File]::Create('d:\\ANIME\\PortoV3\\favicon.ico'); "
-            "$icon.Save($fs); "
-            "$fs.Close(); $icon.Dispose(); $favG.Dispose(); $favBmp.Dispose(); "
-            "$g.Dispose(); $bmp.Dispose();"
-        )
-        import subprocess
-        subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], check=False)
-        print("[OK] Preload logo and favicon.ico updated with ultra-bold white 'N'!")
-    except Exception as e:
-        print(f"[WARN] Could not generate solid white logo/favicon: {e}")
-
-    # 5. Generate push.bat helper
-    push_bat_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'push.bat')
-    with open(push_bat_path, 'w', encoding='utf-8') as f:
-        f.write('''@echo off
-echo Committing granular updates to Git...
-git add portfolio.config.json
-git commit -m "feat(config): customize portfolio with real projects, roadmap 2021-2026, and authentic profile"
-git add projects/
-git commit -m "feat(assets): add authentic project mockups (sinar design build, sumatra tour, anak cerdas)"
-git add sync.py
-git commit -m "feat(build): implement automated JSON-to-HTML flight sync with cloudflare cleanup"
-git add server.py
-git commit -m "refactor(server): clean up legacy cloudflare routes and optimize local preview server"
-git add _next/
-git commit -m "fix(contact): patch contact section to render direct GitHub profile link"
-git add index.html id.html
-git commit -m "feat(pages): synchronize dual-language entry points with authentic portfolio data"
-git add README.md package.json .gitignore
-git commit -m "docs(meta): update documentation, email, and package build scripts"
-echo Pushing to GitHub main...
-git push origin main
-echo Done!
-pause
-''')
+    # 4. Generate high-resolution solid white 'N' logo and favicon.ico if on Windows
+    import platform
+    if platform.system() == "Windows":
+        try:
+            ps_cmd = (
+                "[void][System.Reflection.Assembly]::LoadWithPartialName('System.Drawing'); "
+                "$bmp = New-Object System.Drawing.Bitmap 512, 512; "
+                "$g = [System.Drawing.Graphics]::FromImage($bmp); "
+                "$g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic; "
+                "$g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias; "
+                "$g.TextRenderingHint = [System.Drawing.Text.TextRenderingHint]::AntiAlias; "
+                "$g.Clear([System.Drawing.Color]::Transparent); "
+                "$bBlack = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::Black); "
+                "$g.FillEllipse($bBlack, 16, 16, 480, 480); "
+                "$fontFamily = New-Object System.Drawing.FontFamily('Arial Black'); "
+                "$path = New-Object System.Drawing.Drawing2D.GraphicsPath; "
+                "$sf = New-Object System.Drawing.StringFormat; "
+                "$sf.Alignment = [System.Drawing.StringAlignment]::Center; "
+                "$sf.LineAlignment = [System.Drawing.StringAlignment]::Center; "
+                "$path.AddString('N', $fontFamily, [int][System.Drawing.FontStyle]::Bold, 295, (New-Object System.Drawing.RectangleF 0, 8, 512, 512), $sf); "
+                "$bWhite = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White); "
+                "$g.FillPath($bWhite, $path); "
+                "$penWhite = New-Object System.Drawing.Pen([System.Drawing.Color]::White, 24); "
+                "$penWhite.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round; "
+                "$g.DrawPath($penWhite, $path); "
+                "$dest = 'd:\\ANIME\\PortoV3\\logo.png'; "
+                "$bmp.Save($dest, [System.Drawing.Imaging.ImageFormat]::Png); "
+                "$favBmp = New-Object System.Drawing.Bitmap 64, 64; "
+                "$favG = [System.Drawing.Graphics]::FromImage($favBmp); "
+                "$favG.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic; "
+                "$favG.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias; "
+                "$favG.DrawImage($bmp, 0, 0, 64, 64); "
+                "$hIcon = $favBmp.GetHicon(); "
+                "$icon = [System.Drawing.Icon]::FromHandle($hIcon); "
+                "$fs = [System.IO.File]::Create('d:\\ANIME\\PortoV3\\favicon.ico'); "
+                "$icon.Save($fs); "
+                "$fs.Close(); $icon.Dispose(); $favG.Dispose(); $favBmp.Dispose(); "
+                "$g.Dispose(); $bmp.Dispose();"
+            )
+            import subprocess
+            subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], check=False)
+            print("[OK] Preload logo and favicon.ico updated with ultra-bold white 'N'!")
+        except Exception as e:
+            print(f"[WARN] Could not generate solid white logo/favicon: {e}")
 
     print("[OK] All portfolio pages synchronized successfully with portfolio.config.json!")
 
