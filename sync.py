@@ -21,7 +21,17 @@ def build_pages():
         shutil.rmtree(cdn_dir, ignore_errors=True)
         print("[CLEANUP] Removed obsolete cdn-cgi/ Cloudflare assets.")
 
-    # 4. Generate push.bat helper
+    # 4. Update preload logo with user's custom logo
+    custom_logo_src = r"C:\Users\NOVA ZE\.gemini\antigravity\brain\ebc36c23-1a84-4cfb-8b01-d1bec4273374\.user_uploaded\media_1788406459501.png"
+    logo_dst = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logo.png')
+    if os.path.exists(custom_logo_src):
+        try:
+            shutil.copyfile(custom_logo_src, logo_dst)
+            print("[OK] Preload logo updated to new custom logo!")
+        except Exception as e:
+            print(f"[WARN] Could not copy logo: {e}")
+
+    # 5. Generate push.bat helper
     push_bat_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'push.bat')
     with open(push_bat_path, 'w', encoding='utf-8') as f:
         f.write('''@echo off
