@@ -1,140 +1,117 @@
-<div align="center">
+# Nova Portfolio (Version 3)
 
-# 🌟 Nova Portfolio V3
+Technical portfolio and personal web application for Nova Berkat Syukur Zebua, Full-Stack Developer and Software Engineer.
 
-**Modern, Minimalist, and High-Performance Portfolio for Nova (Nova Berkat Syukur Zebua)**  
-*Full-Stack Developer & Software Engineer*
+## Overview
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live_Preview-black?style=for-the-badge&logo=vercel)](https://novazeb.github.io/PortoV3/)
-[![Stack](https://img.shields.io/badge/Stack-React%20%7C%20Next.js%20%7C%20TailwindCSS-blue?style=for-the-badge)](https://github.com/Novazeb)
-[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+PortoV3 is a performance-oriented, bilingual web portfolio engineered with static site architecture. It showcases production software projects, core technical competencies, engineering philosophy, and career trajectory. The application is pre-rendered with Next.js and styled using Tailwind CSS, supporting dark theme interfaces, client-side motion choreography, and sub-second load times.
 
-</div>
+## Architecture and Specifications
 
----
+| Attribute | Specification |
+| :--- | :--- |
+| **Frontend Framework** | React 19 / Next.js (Static Export) |
+| **Styling** | Tailwind CSS, Custom Utility Layers |
+| **Typography** | Syne, Inter (Self-hosted WebP/WOFF2) |
+| **Internationalization** | Dual-language routing (English `/`, Indonesian `/id`) |
+| **State & Configuration** | Centralized JSON schema (`portfolio.config.json`) |
+| **Local Runtime** | Python 3 Standard Library HTTP Server (`server.py`) |
+| **Deployment Target** | Static Hosting (Vercel, GitHub Pages, Netlify) |
 
-## 📌 Overview
+## Core Technical Features
 
-**PortoV3** is an interactive, dark-mode portfolio showcasing engineering projects, technical stack expertise, architecture manifesto, and timeline roadmap. Built on top of pre-rendered React & Next.js architectures with clean utility styling powered by Tailwind CSS.
+- **Decoupled Configuration Pipeline:** Content, metadata, project listings, and roadmap milestones are defined within `portfolio.config.json`. The synchronization compiler (`sync.py`) propagates state updates across static HTML templates and embedded React Flight payloads.
+- **Zero-Dependency Runtime:** The local development server operates entirely on the Python Standard Library without requiring runtime package managers or local node dependency trees.
+- **Static Pre-rendering & Performance:** Pre-compiled static HTML paired with modern WebP asset compression ensures minimal initial payload sizes and rapid First Contentful Paint (FCP).
+- **Interactive Motion Systems:** Smooth scrolling powered by Lenis, particle field simulations, and physics-driven UI components implemented with Framer Motion.
 
-### ✨ Key Features
-- ⚡ **Zero-Dependency Local Server:** Runs natively with Python stdlib (`server.py`), no heavy `node_modules` required for static runtime.
-- 🌐 **Dual-Language Support:** Instant switching between **English** (`/` or `/en`) and **Bahasa Indonesia** (`/id`).
-- 🎨 **Modern Visual Aesthetics:** Infinite hero slider with authentic WebP portraits, smooth particle background canvas, and responsive hover cards.
-- 📱 **Mobile & Desktop Optimized:** Ultra-responsive layout across all viewport breakpoints.
-- 🚀 **Vercel & Static Host Ready:** Includes optimized `vercel.json` routing rules for 1-click cloud deployment.
+## Technical Stack
 
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 19 & Next.js App Router** — Interactive components, state management & client hydration.
-- **Tailwind CSS** — Modern typography, responsive utility grid, and dark theme design.
-- **TypeScript & JavaScript (ES6+)** — Robust type-safe client-side logic.
+### Frontend Engineering
+- **Languages:** TypeScript, JavaScript (ECMAScript 2022+)
+- **Frameworks & Libraries:** React 19, Next.js (App Router), Lucide React
+- **CSS Architecture:** Tailwind CSS, PostCSS
 
 ### Backend & Databases
-- **PHP & Laravel** — Robust backend architectures and RESTful APIs.
-- **Node.js & Python** — Microservices, CLI utilities, and runtime scripting.
-- **PostgreSQL & MySQL** — Relational database integrity and query optimization.
+- **Runtime & Frameworks:** PHP 8+, Laravel, Node.js, Python 3
+- **Data Persistence:** PostgreSQL, MySQL
+- **APIs & Protocols:** RESTful APIs, JSON Schema
 
-### Tools & Infrastructure
-- **Git & GitHub** — Version control and collaborative workflows.
-- **Vercel & Netlify** — Continuous deployment and edge hosting.
-- **VS Code & Figma** — Interface design and engineering workflow.
+### DevOps & Infrastructure
+- **Version Control:** Git, GitHub
+- **Hosting & Edge Delivery:** Vercel, Netlify, Cloudflare
+- **Tooling:** Visual Studio Code, Figma
 
----
-
-## 📂 Project Structure
+## Repository Structure
 
 ```text
 PortoV3/
-├── _next/                # Compiled JavaScript, CSS, and font bundles
-│   └── static/
-│       ├── chunks/       # Component bundles & Tailwind stylesheet
-│       └── media/        # Web fonts (.woff2)
-├── cdn-cgi/              # Cloudflare email protection scripts
-├── hero-slider/          # Hero section WebP portrait assets (nova1 - nova7)
-├── projects/             # Featured showcase thumbnails & project assets
-├── stack/                # Tech stack SVG & brand icons
-├── index.html            # Main English landing page
-├── id.html               # Bahasa Indonesia landing page
-├── portfolio.config.json # Centralized content configuration (Easy to edit!)
-├── sync.py               # Auto-sync tool for portfolio.config.json
-├── package.json          # Node scripts configuration
-├── server.py             # Zero-dependency Python HTTP server
-├── vercel.json           # Vercel deployment routing configuration
+├── _next/                # Pre-compiled client scripts, styles, and font assets
+├── hero-slider/          # Compressed portrait assets (WebP format)
+├── projects/             # High-resolution project showcase mockups
+├── stack/                # Vector technology badges and brand icons
+├── index.html            # English entry point (Primary)
+├── id.html               # Indonesian entry point (Alternative)
+├── portfolio.config.json # Master content configuration file
+├── sync.py               # Automated JSON-to-HTML synchronization pipeline
+├── push.bat              # Modular Git commit and push automation
+├── server.py             # Lightweight local HTTP preview server
+├── vercel.json           # Cloud deployment routing configuration
 ├── .gitignore            # Git exclusion rules
-└── README.md             # Project documentation
+└── README.md             # Technical documentation
 ```
 
----
+## Configuration and Content Management
 
-## ✏️ How to Edit / Customize Content
+All application content is maintained centrally within `portfolio.config.json`. Direct modification of compiled HTML or JavaScript bundles is not required.
 
-You don't need to manually edit minified HTML files! All content is neatly organized in **`portfolio.config.json`**:
-
-1. Open **`portfolio.config.json`** in VS Code.
-2. Edit anything you want:
-   - **Profile & Social Links** (`profile`)
-   - **About Bio** in English & Indonesian (`about`)
-   - **Tech Stack & Icons** (`stack`)
-   - **Projects, Demo URLs & Descriptions** (`projects`)
-   - **Career Roadmap Timeline** (`roadmap`)
-3. Run the sync command:
+### Content Modification Procedure:
+1. Edit the relevant records in `portfolio.config.json`:
+   - `profile`: Personal identity, contact endpoints, and social links.
+   - `about`: Biographical statements in both languages.
+   - `stack`: Technology categorizations and associated SVG identifiers.
+   - `projects`: Showcase catalog including descriptions, tech tags, and repository links.
+   - `roadmap`: Chronological milestones and professional experience.
+2. Execute the synchronization pipeline:
    ```bash
    python sync.py
-   # or with npm:
-   npm run sync
    ```
-4. Refresh your browser to see your changes applied instantly to both English and Indonesian versions!
+3. The script will rebuild the required state payloads and rewrite static DOM sections for both English and Indonesian documents.
 
----
-
-## 🚀 Getting Started Locally
+## Local Execution
 
 ### Prerequisites
-- Python 3.8+ (No external pip libraries needed!)
+- Python 3.8 or higher
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/Novazeb/PortoV3.git
-cd PortoV3
-```
+### Installation and Server Launch
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Novazeb/PortoV3.git
+   cd PortoV3
+   ```
+2. Start the local server:
+   ```bash
+   python server.py
+   ```
+3. Access the application via standard web browsers:
+   - English: `http://localhost:3000/`
+   - Indonesian: `http://localhost:3000/id`
 
-### 2. Run the Local Server
-```bash
-python server.py
-# or if using npm:
-npm start
-```
+## Deployment
 
-### 3. Open in Browser
-Visit **`http://localhost:3000`** (English) or **`http://localhost:3000/id`** (Indonesian).
+The repository includes a production-ready `vercel.json` specification for zero-configuration static deployment:
+1. Commit and push repository updates to GitHub.
+2. Connect the repository to Vercel or any static hosting provider.
+3. Deploy without build overrides; root directory static files will be served automatically.
 
----
+## Contact Information
 
-## ☁️ Deployment (Vercel)
-
-This project is pre-configured with `vercel.json` for zero-configuration static deployment:
-
-1. Push your changes to GitHub.
-2. Go to [Vercel Dashboard](https://vercel.com/dashboard).
-3. Click **Add New Project** and select `PortoV3`.
-4. Deploy! Vercel will automatically route `/id` and `/en` cleanly.
-
----
-
-## 📬 Connect with Me
-
-- **Website:** [Nova Portfolio](https://github.com/Novazeb)
-- **GitHub:** [@Novazeb](https://github.com/Novazeb)
-- **LinkedIn:** [Nova Berkat Syukur Zebua](https://linkedin.com/in/novazebua)
-- **Instagram:** [@zebua_1011](https://instagram.com/zebua_1011)
-- **Email:** [novaberkatsyukurzebua@gmail.com](mailto:novaberkatsyukurzebua@gmail.com)
+- **Full Name:** Nova Berkat Syukur Zebua
+- **GitHub:** https://github.com/Novazeb
+- **LinkedIn:** https://linkedin.com/in/novazebua
+- **Instagram:** https://instagram.com/zebua_1011
+- **Email:** novaberkatsyukurzebua@gmail.com
 
 ---
 
-<div align="center">
-  <sub>Built with ❤️ by <b>Nova Berkat Syukur Zebua</b>. All rights reserved.</sub>
-</div>
+Copyright 2026 Nova Berkat Syukur Zebua. All rights reserved.
